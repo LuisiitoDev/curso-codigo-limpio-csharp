@@ -57,17 +57,22 @@ namespace ToDo
                 ShowTaskList();
 
                 string numberTaskToRemove = Console.ReadLine();
-                // Remove one position
-                int indexToRemove = Convert.ToInt32(numberTaskToRemove) - 1;
-                if (indexToRemove > -1 && TaskList.Count > 0)
+                uint indexToRemove = 0;
+                if (!uint.TryParse(numberTaskToRemove,out indexToRemove) || ((indexToRemove - 1) > (TaskList.Count - 1)))
                 {
-                    string taskRemoved = TaskList[indexToRemove];
-                    TaskList.RemoveAt(indexToRemove);
-                    Console.WriteLine("Tarea " + taskRemoved + " eliminada");
+                    Console.WriteLine("El valor ingresado no es valido");
+                    return;
                 }
+
+                int index = (int)indexToRemove - 1;
+                // Remove one position
+                string taskRemoved = TaskList[index];
+                TaskList.RemoveAt(index);
+                Console.WriteLine("Tarea " + taskRemoved + " eliminada");
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al eliminar la tarea");
             }
         }
 
@@ -77,11 +82,17 @@ namespace ToDo
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
                 string newTask = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(newTask))
+                {
+                    Console.WriteLine("Por favor ingresar una tarea con formato valido");
+                    return;
+                }
                 TaskList.Add(newTask);
                 Console.WriteLine("Tarea registrada");
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al eliminar la tarea");
             }
         }
 
@@ -104,7 +115,6 @@ namespace ToDo
         {
             if (TaskList is null) return;
             Console.WriteLine("----------------------------------------");
-            TaskList.Select((task,index) => );
             for (int indexTask = 0; indexTask < TaskList.Count; indexTask++)
             {
                 Console.WriteLine((indexTask + 1) + ". " + TaskList[indexTask]);
