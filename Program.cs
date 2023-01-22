@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ToDo
 {
@@ -58,14 +59,11 @@ namespace ToDo
                 string numberTaskToRemove = Console.ReadLine();
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(numberTaskToRemove) - 1;
-                if (indexToRemove > -1)
+                if (indexToRemove > -1 && TaskList.Count > 0)
                 {
-                    if (TaskList.Count > 0)
-                    {
-                        string taskRemoved = TaskList[indexToRemove];
-                        TaskList.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + taskRemoved + " eliminada");
-                    }
+                    string taskRemoved = TaskList[indexToRemove];
+                    TaskList.RemoveAt(indexToRemove);
+                    Console.WriteLine("Tarea " + taskRemoved + " eliminada");
                 }
             }
             catch (Exception)
@@ -106,6 +104,7 @@ namespace ToDo
         {
             if (TaskList is null) return;
             Console.WriteLine("----------------------------------------");
+            TaskList.Select((task,index) => );
             for (int indexTask = 0; indexTask < TaskList.Count; indexTask++)
             {
                 Console.WriteLine((indexTask + 1) + ". " + TaskList[indexTask]);
